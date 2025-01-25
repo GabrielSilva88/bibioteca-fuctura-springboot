@@ -3,6 +3,9 @@ package br.com.fuctura.biblioteca.services;
 import br.com.fuctura.biblioteca.enums.Tamanho;
 import br.com.fuctura.biblioteca.models.Categoria;
 import br.com.fuctura.biblioteca.models.Livro;
+import br.com.fuctura.biblioteca.repositores.categoriaRepository;
+import br.com.fuctura.biblioteca.repositores.livroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
@@ -10,6 +13,12 @@ import java.util.Arrays;
 
 @Service
 public class DBService {
+
+    @Autowired
+    private livroRepository livroRepository;
+
+    @Autowired
+    private categoriaRepository categoryRepository;
 
     public void instanciaDb (){
         Categoria cat1 = new Categoria(null, "Infórmatica", "Livros de infórmatica");
@@ -24,5 +33,8 @@ public class DBService {
 
         cat1.getLivros().addAll(Arrays.asList(l1, l2));
         cat2.getLivros().addAll(Arrays.asList(l3, l4, l5));
+
+        this.categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+        this.livroRepository.saveAll(Arrays.asList(l1, l2, l3, l4));
     }
 }
