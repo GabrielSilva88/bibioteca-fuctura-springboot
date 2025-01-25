@@ -2,12 +2,21 @@ package br.com.fuctura.biblioteca.models;
 
 import br.com.fuctura.biblioteca.enums.Tamanho;
 
+import javax.persistence.*;
+
+@Entity
+//@Table(name = tb_livro)
 public class Livro {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String titulo;
     private String autor;
     private String texto;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
     private Tamanho tamanho;
@@ -44,14 +53,16 @@ public class Livro {
         this.texto = texto;
     }
 
-    public Livro(Integer id, String titulo, String autor, String texto) {
+    public Livro(Integer id, String titulo, String autor, String texto, Tamanho tamanho, Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.texto = texto;
+        this.tamanho = tamanho;
+        this.categoria = categoria;
     }
 
-    public Livro(){
+    public Livro() {
         super();
     }
 
