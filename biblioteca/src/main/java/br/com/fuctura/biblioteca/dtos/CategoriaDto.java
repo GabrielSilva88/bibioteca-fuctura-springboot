@@ -12,16 +12,14 @@ public class CategoriaDto {
     private String genero;
     private String descricao;
 
-    private List<Livro> livros = new ArrayList<>();
-
     public CategoriaDto() {
     }
 
-    public CategoriaDto(Integer id, String genero, String descricao, List<Livro> livros) {
+    public CategoriaDto(Integer id, String genero, String descricao) {
         this.id = id;
         this.genero = genero;
         this.descricao = descricao;
-        this.livros = livros;
+
     }
 
     public Integer getId() {
@@ -48,11 +46,4 @@ public class CategoriaDto {
         this.descricao = descricao;
     }
 
-    public List<Livro> getLivros() {
-        return livros;
-    }
-
-    public void setLivros(List<Livro> livros) {
-        this.livros = livros;
-    }
 }
