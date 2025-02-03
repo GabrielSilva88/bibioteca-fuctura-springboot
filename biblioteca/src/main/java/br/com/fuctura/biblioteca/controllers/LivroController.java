@@ -1,29 +1,42 @@
 package br.com.fuctura.biblioteca.controllers;
 
+import br.com.fuctura.biblioteca.dtos.LivroDto;
 import br.com.fuctura.biblioteca.models.Livro;
 import br.com.fuctura.biblioteca.repositores.LivroRepository;
+import br.com.fuctura.biblioteca.services.LivroService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/livros")
+@RequestMapping("/livro")
 public class LivroController {
 
+    /*
+  @GetMapping("/{id}") = findById
+  @GetMapping = findAll
+  @PutMapping("/{id}") = atualizar - update
+  @PostMapping = salvar - save
+  @DeleteMapping("/{id}") = apagar - delete
+  */
+    @Autowired
+    private LivroService livroService;
 
-    private final LivroRepository livroRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
-    public LivroController(LivroRepository livroRepository) {
-        this.livroRepository = livroRepository;
+    @GetMapping("/id")
+    public ResponseEntity<LivroDto> findById(@PathVariable Integer id) {
+        Livro livro = livroService.findById(id);
+        return ResponseEntity.ok().body(modelMapper.map(livro, LivroDto.class));
     }
 
-    @GetMapping("")
-    public List<Livro> livros(){
-        return livroRepository.findAll();
+    @GetMapping("/id")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        livroService.delete(id);
+        return ResponseEntity.noContent().build();
     }
-
-
 }
