@@ -14,14 +14,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/livro")
 public class LivroController {
-
-    /*
+       /*
   @GetMapping("/{id}") = findById
   @GetMapping = findAll
   @PutMapping("/{id}") = atualizar - update
   @PostMapping = salvar - save
   @DeleteMapping("/{id}") = apagar - delete
   */
+/*
+
     @Autowired
     private LivroService livroService;
 
@@ -38,5 +39,5 @@ public class LivroController {
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         livroService.delete(id);
         return ResponseEntity.noContent().build();
-    }
+    }*/
 }
