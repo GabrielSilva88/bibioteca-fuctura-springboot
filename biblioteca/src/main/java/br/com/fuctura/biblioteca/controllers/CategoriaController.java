@@ -44,14 +44,14 @@ public class CategoriaController {
         List<Categoria> categorias = categoriaService.findAll();
         return ResponseEntity.ok().body(categorias.stream().map(obj -> modelMapper.map(obj, CategoriaDto.class)).collect(Collectors.toList()));
     }
-
+    // adicionado @valid para acionar as validações.
     @PostMapping
     public ResponseEntity<CategoriaDto> save(@Valid @RequestBody CategoriaDto categoriaDto){
         Categoria categoria = modelMapper.map(categoriaDto, Categoria.class);
         Categoria cat = categoriaService.save(categoria);
         return ResponseEntity.ok().body(modelMapper.map(cat, CategoriaDto.class));
     }
-
+    // adicionado @valid para acionar as validações.
     @PutMapping("/{id}")
     public ResponseEntity<CategoriaDto> update(@Valid @PathVariable Integer id, @RequestBody CategoriaDto categoriaDto){
         categoriaDto.setId(id);

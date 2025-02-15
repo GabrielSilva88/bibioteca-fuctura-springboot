@@ -15,7 +15,6 @@ public class StandardError {
     public StandardError() {
     }
 
-
     public StandardError(LocalDateTime timestamp, Integer status, String message, String path) {
         this.timestamp = timestamp;
         this.status = status;

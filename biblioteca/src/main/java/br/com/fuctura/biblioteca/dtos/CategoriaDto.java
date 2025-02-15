@@ -13,7 +13,7 @@ import java.util.List;
 public class CategoriaDto {
 
     private Integer id;
-
+// condicional para prenenchar os campos de dados.
     @Length(min = 3, max = 20, message = "letras Minimo 3 e Maximo 20")
     @NotBlank(message = "campo GENERO é requerido")
     private String genero;
