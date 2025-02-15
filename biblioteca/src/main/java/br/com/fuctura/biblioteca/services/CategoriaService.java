@@ -24,7 +24,13 @@ public class CategoriaService {
         }
         throw new ObjectNotFoundExepiton("Categorai Não encontrada ou não existe");
     }
-
+   public Categoria findByName(String nome) {
+        Optional<Categoria> cat = categoriaRepository.findByGenero(nome);
+        if( cat.isPresent() ) {
+            return cat.get();
+        }
+        throw new ObjectNotFoundExepiton("Categoria Não encontrada");
+   }
     public List<Categoria> findAll() {
         return categoriaRepository.findAll();
     }

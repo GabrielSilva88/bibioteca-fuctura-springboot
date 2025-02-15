@@ -12,4 +12,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{
     //public boolean existsByGenero(String genero);
 
     public Optional<Categoria> findByGenero(String genero);
+
+    public Optional<Categoria> findByGeneroContainingIgnoreCase(String nome);
+
 }

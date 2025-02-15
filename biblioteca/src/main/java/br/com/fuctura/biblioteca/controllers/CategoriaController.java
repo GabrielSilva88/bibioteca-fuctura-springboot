@@ -38,6 +38,12 @@ public class CategoriaController {
         Categoria categoria = categoriaService.findById(id);
         return ResponseEntity.ok().body(modelMapper.map(categoria, CategoriaDto.class));
     }
+    //adicionado para biscar por nome do genero.
+   @GetMapping("/name/{genero}")
+    public ResponseEntity<CategoriaDto> findByName(@PathVariable String genero){
+        Categoria categoria = categoriaService.findByName(genero);
+        return ResponseEntity.ok(modelMapper.map(categoria, CategoriaDto.class));
+    }
 
     @GetMapping
     public ResponseEntity<List<CategoriaDto>> findAll(){

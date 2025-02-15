@@ -1,6 +1,8 @@
 package br.com.fuctura.biblioteca.dtos;
 
 import br.com.fuctura.biblioteca.enums.Tamanho;
+import br.com.fuctura.biblioteca.models.Categoria;
+import br.com.fuctura.biblioteca.models.Livro;
 
 public class LivroDto {
     private Integer id;
@@ -8,10 +10,14 @@ public class LivroDto {
     private String autor;
     private String texto;
 
-    private CategoriaDto categoria;
+    private Categoria categoria;
     private Tamanho tamanho;
 
-    public LivroDto(Integer id, String titulo, String autor, String texto, CategoriaDto categoria, Tamanho tamanho) {
+
+    public LivroDto() {
+    }
+
+    public LivroDto(Integer id, String titulo, String autor, String texto, Categoria categoria, Tamanho tamanho) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -19,8 +25,14 @@ public class LivroDto {
         this.categoria = categoria;
         this.tamanho = tamanho;
     }
-
-    public LivroDto() {
+    // criado contrutor recebendo Objeto Livro e buscando seus atributos. corrigir erro Mapper
+    public LivroDto(Livro livro) {
+        this.id = livro.getId();
+        this.titulo = livro.getTitulo();
+        this.autor = livro.getAutor();
+        this.texto = livro.getTexto();
+        this.categoria = livro.getCategoria();
+        this.tamanho = livro.getTamanho();
     }
 
     public Integer getId() {
@@ -55,11 +67,11 @@ public class LivroDto {
         this.texto = texto;
     }
 
-    public CategoriaDto getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(CategoriaDto categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

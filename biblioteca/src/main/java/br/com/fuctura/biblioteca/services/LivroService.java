@@ -1,8 +1,12 @@
 package br.com.fuctura.biblioteca.services;
 
+import br.com.fuctura.biblioteca.dtos.LivroDto;
+import br.com.fuctura.biblioteca.exeptions.ObjectNotFoundExepiton;
+import br.com.fuctura.biblioteca.models.Categoria;
 import br.com.fuctura.biblioteca.models.Livro;
 import br.com.fuctura.biblioteca.repositores.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -15,28 +19,31 @@ public class LivroService {
     @Autowired
     private LivroRepository livroRepository;
 
-    public List<Livro> findAll() {
-        return livroRepository.findAll();
+    @Autowired
+    private CategoriaService categoriaService;
+
+    public Livro findById(Integer id) {
+        Optional<Livro> livro = livroRepository.findById(id);
+        if (livro.isPresent()) {
+            return livro.get();
+        }
+        throw new ObjectNotFoundExepiton("Livro nao encontrado ou não existente");
     }
 
-    public Livro findById(int id) {
-        Optional<Livro> livros = livroRepository.findById(id);
-        return livros.orElse(null);
-    }
-
-    public Livro save(Livro livro) {
-        Livro liv = livroRepository.save(livro);
-        return liv;
-    }
-
-    public Livro update(@RequestBody Livro livro) {
-       Livro liv = livroRepository.save(livro);
-       return liv;
-    }
-
-    public void delete(int id) {
+    public void delete(Integer id) {
+        findById(id);
         livroRepository.deleteById(id);
     }
 
+    public List<Livro> findAll(Integer id_cat) {
+        categoriaService.findById(id_cat);
+        return livroRepository.findAllLivrosByCategoriaId(id_cat);
+    }
 
+    public Livro save(Integer id, LivroDto livroDto) {
+        livroDto.setId(null);
+        Categoria cat = categoriaService.findById(id);
+        livroDto.setCategoria(cat);
+       return livroRepository.save(new Livro(livroDto));
+    }
 }

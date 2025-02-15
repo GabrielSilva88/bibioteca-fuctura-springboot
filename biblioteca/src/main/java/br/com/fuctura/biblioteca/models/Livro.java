@@ -1,5 +1,6 @@
 package br.com.fuctura.biblioteca.models;
 
+import br.com.fuctura.biblioteca.dtos.LivroDto;
 import br.com.fuctura.biblioteca.enums.Tamanho;
 
 import javax.persistence.*;
@@ -53,6 +54,22 @@ public class Livro {
         this.texto = texto;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Tamanho getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(Tamanho tamanho) {
+        this.tamanho = tamanho;
+    }
+
     public Livro(Integer id, String titulo, String autor, String texto, Tamanho tamanho, Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
@@ -66,4 +83,14 @@ public class Livro {
         super();
     }
 
+    public Livro(LivroDto livroDto) {
+        this.id = livroDto.getId();
+        this.titulo = livroDto.getTitulo();
+        this.autor = livroDto.getAutor();
+        this.texto = livroDto.getTexto();
+        this.tamanho = livroDto.getTamanho();
+        this.categoria = livroDto.getCategoria();
+    }
+
 }
+
